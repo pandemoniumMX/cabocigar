@@ -1,19 +1,15 @@
 <?php	
     include'conexion.php';
-    $empresa ="SELECT n.ID_NEGOCIO, n.NEG_NOMBRE, n.NEG_RAZONSOCIAL, e.ID_EXPOSICION, e.EXP_NIVEL, e.EXP_FECHA_ALTA, e.EXP_FECHA_CADUCIDAD
-    FROM   negocios  n, exposicion e
-    WHERE n.ID_NEGOCIO = e.ID_NEGOCIO ";
-
-    $ramos = "SELECT ID_RAMO, RAM_NOMBRE From ramos where estatus='A'";
+    $ramo = "SELECT ID_RAMO, RAM_NOMBRE From ramos where estatus='A'";
+    $categoria = "SELECT * From categorias where CAT_estatus='A'";
     $subcategoria = "SELECT * From subcategoria where sub_estatus='A'";
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
-
-
     <!-- Required meta tags-->
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,7 +18,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Modifica empresas</title>
+    <title>Maps</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -45,43 +41,13 @@
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
-    <!-- Jquery JS-->
-    <script src="vendor/jquery-3.2.1.min.js"></script>
-
-    <script type="text/javascript">
-
-$(document).ready(function(){
-    $("#ramo").click(function () {
-    $("#ramo option:selected").each(function () {
-    ID_RAMO = $(this).val();
-    $.post("registro_negocio_combo_cat.php", { ID_RAMO: ID_RAMO }, function(data){
-    $("#categoria").html(data);
-          });            
-        });
-    })
-});
-
-$(document).ready(function(){
-    $("#categoria").click(function () {
-    $("#categoria option:selected").each(function () {
-        ID_CATEGORIA = $(this).val();
-    $.post("registro_negocio_combo_subcat.php", { ID_CATEGORIA: ID_CATEGORIA }, function(data){
-    $("#subcategoria").html(data);
-          });            
-        });
-    })
-});
-
-</script>
-        
-
 
 </head>
 
 <body class="animsition">
     <div class="page-wrapper">
-        <!-- HEADER MOBILE-->
-        <header class="header-mobile d-block d-lg-none">
+       <!-- HEADER MOBILE-->
+       <header class="header-mobile d-block d-lg-none">
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
@@ -106,7 +72,7 @@ $(document).ready(function(){
                                 <li>
                                     <a href="registro negocio.php">Nuevo registro empresa</a>
                                 </li>
-                                <li class="active">
+                                <li>
                                 <a href="modificar_empresa.php">Modificar empresa</a>
                                 </li>
                               
@@ -156,7 +122,7 @@ $(document).ready(function(){
                                 <li>
                                 <a href="registro_negocio.php">Nuevo registro empresa</a>
                                 </li>
-                                <li class="active">
+                                <li>
                                 <a href="modificar_empresa.php">Modificar empresa</a>
                                 </li>
                              
@@ -182,7 +148,7 @@ $(document).ready(function(){
                             <i class="fas fa-comments"></i>Reseñas</a>                         
                         </li>
                         <li>
-                        <a href="usuarios.php">
+                            <a href="usuarios.php">
                                 <i class="fas fa-user"></i>Usuarios</a>                           
                         </li>
                     </ul>
@@ -370,68 +336,19 @@ $(document).ready(function(){
             <div class="main-content">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
-                    <div class="card">
-                                   
-
-                                <div id='show-me'>
-                                    
-
-                                <table id="a-tables" class="table table-hover table-dark table-responsive">
-                                                    <thead>
-
-                                                        <th data-field="id">ID</th>
-                                                    <th data-field="fecha" data-sortable="true">Nombre</th>
-                                                    <th data-field="estatus" data-sortable="true">Razón social</th>
-                                                    <th data-field="estatus" data-sortable="true">Nivel de exposición</th>
-                                                    <th class="disabled-sorting">Acción</th>
-
-                                                    </thead>
-                                                    <?php
-                                                    $ejecutar = mysqli_query($conn, $empresa);
-                                                    while($fila=mysqli_fetch_array($ejecutar)){
-                                                        $id          = $fila['ID_NEGOCIO'];
-                                                        $nom           = $fila['NEG_NOMBRE'];
-                                                        $dir          = $fila['NEG_RAZONSOCIAL'];
-                                                        $ape          = $fila['EXP_NIVEL'];
+                   
+                                            
 
 
-                                                ?>
-                                                                    <tr>
-                                                                        <td width="8%"><?php echo $id ?></td>
-                                                                        <td width="14%"><?php echo $nom ?></td>
-                                                                        <td width="14%"><?php echo $dir ?></td>
-                                                                        <td width="14%"><?php echo $ape ?></td>
-                                                                        <td width="14%">
-                                                                        <?php
-                                                                            echo "        
-                                                                            <a href='#' onclick='modificar($id), update_em_fn($id);' title='Modificar empresa' ><i class='btn-sm btn-success fa fa-refresh'></i></a>   
-                                                                            <a href='#' onclick='expo($id), update_ex_fn($id);' title='Modificar exposición' ><i class='btn-sm btn-danger fa fa-bolt'></i></a>    
-                                                                            <a href='modificar_empresa_car.php?id=", base64_encode($id), "'  title='Modificar caracteristicas' ><i class='btn-sm btn-info fa fa-star'></i></a>                                                      
-                                                                                                                 
-                                                                            <a href='recepcion_historial_cliente.php?id=", base64_encode($id), "'  title='Modificar galería'><i class='btn-sm btn-primary fa fa-picture-o'></i></a>
-                                                                            </td>"; 
-                                                                    ?>
 
-                                                        </tr>
-                                                        <?php } ?>
-                                                        <tbody></br>
-                                                            Resultado de tabla categoría
-                                                    </tbody>
-                                                </table>
-                                </div>
-                            </div>
 
-                    </div>
-
-                </div>
+            </div>
         </div>
 
     </div>
 
-
-
-
-
+    <!-- Jquery JS-->
+    <script src="vendor/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
@@ -469,310 +386,13 @@ $(document).ready(function(){
     <script type="text/javascript" src="js/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript">$('#a-tables').DataTable();</script>
 
-    
     <script src="js/sweetalert2.all.min.js"></script>
     <script src="js/sweetalert2.js"></script>
 
-    <script>
-        //Script para mandar ID para generar la orden
-        function update_em_fn(id){
-        $.ajax({
-
-        // la URL para la petición
-        url : 'modificar_empresa_getem_fn.php',
-        // la información a enviar
-        // (también es posible utilizar una cadena de datos)
-        data : {
-        id : id
-        },
-        // especifica si será una petición POST o GET
-        type : 'POST',
-        // el tipo de información que se espera de respuesta
-        dataType : 'json',
-        // código a ejecutar si la petición es satisfactoria;
-        // la respuesta es pasada como argumento a la función
-        success : function(data) {
-        //Manda Llamar id,nombre y apellido
-        $("#id").val(data.data.id);
-        $("#nom").val(data.data.nom);
-        $("#raz").val(data.data.raz);
-        $("#rfc").val(data.data.rfc);
-        $("#res").val(data.data.res);
-        $("#dir").val(data.data.dir);
-        $("#des").val(data.data.des);
-        $("#eti").val(data.data.eti);
-        $("#est").val(data.data.est);
-        $("#ram").val(data.data.ram);
-        $("#cat").val(data.data.cat);
-        $("#sub").val(data.data.sub);
-        },
-        // código a ejecutar si la petición falla;
-        // son pasados como argumentos a la función
-        // el objeto de la petición en crudo y código de estatus de la petición
-        error : function(xhr, status) {
-
-        },
-        // código a ejecutar sin importar si la petición falló o no
-        complete : function(xhr, status) {
-
-        }
-        });
-        }
-
-    </script>
-
-        
-<script>
-        //Script para mandar ID para generar la orden
-        function update_ex_fn(id){
-        $.ajax({
-
-        // la URL para la petición
-        url : 'modificar_empresa_getex_fn.php',
-        // la información a enviar
-        // (también es posible utilizar una cadena de datos)
-        data : {
-        id : id
-        },
-        // especifica si será una petición POST o GET
-        type : 'POST',
-        // el tipo de información que se espera de respuesta
-        dataType : 'json',
-        // código a ejecutar si la petición es satisfactoria;
-        // la respuesta es pasada como argumento a la función
-        success : function(data) {
-        //Manda Llamar id,nombre y apellido
-        $("#id").val(data.data.id);
-        $("#expn").val(data.data.expn);
-        $("#expr").val(data.data.expr);
-        $("#expf").val(data.data.expf);
-    
-        },
-        // código a ejecutar si la petición falla;
-        // son pasados como argumentos a la función
-        // el objeto de la petición en crudo y código de estatus de la petición
-        error : function(xhr, status) {
-
-        },
-        // código a ejecutar sin importar si la petición falló o no
-        complete : function(xhr, status) {
-
-        }
-        });
-        }
-
-    </script>
-
-
-<script type="text/javascript">
-//ventana actualizar cliente
-function modificar(id){
-
-
-    swal({
-         title: 'Modificar empresa',
-         html:
-         '<div class="card-body"> <form action="modificar_empresa_updateem_fn.php" method="post" name="data">'+
-         '<input  type="text" name="id" id="id"  readonly class="form-control border-input" required>' +
-
-         '<div class="row">'+
-          '<div class="col-md-4">'+
-            '<div class="form-group">'+
-         '<label>Nombre del negocio</label>'+
-         '<input input type="text" name="nom" id="nom" class="form-control border-input maxlength="25" required>' +
-
-         '</div>'+
-          '</div>'+
-
-          '<div class="col-md-4">'+
-            '<div class="form-group">'+
-         '<label>Razón social</label>' +
-         '<input input type="text" name="raz" id="raz" class="form-control border-input maxlength="25" required>' +
-         '</div>'+
-         '</div>'+
-
-            '<div class="col-md-4">'+
-            '<div class="form-group">'+
 
 
 
-         '<label>RFC</label>' +
-         '<input input type="text" name="rfc" id="rfc" class="form-control border-input maxlength="25" required>' +
-
-          '</div>'+
-         '</div>'+
-         '</div>'+
-
-         '<div class="row">'+
-          '<div class="col-md-4">'+
-            '<div class="form-group">'+
-
-         '<label>Responsable</label>' +
-         '<input input type="text" name="res" id="res" class="form-control border-input maxlength="25" required>' +
-         '</div>'+
-         '</div>'+
-
-         
-         '<div class="col-md-4">'+
-            '<div class="form-group">'+
-
-         '<label>Status</label>' +
-         '<select class="form-control form-control-sm" required textalign="center" name="est" id="est"><option value="" ></option><option value="A" >A</option><option value="C">C</option></select></br>'+   
-         '</div>'+
-         '</div>'+
-         '</div>'+        
-
-         '<div class="row">'+
-          '<div class="col-md-4">'+
-            '<div class="form-group">'+
-             '<label>Dirección</label>' +      
-                 '<textarea type="text" name="dir" id="dir"  class="form-control border-input" rows="5"></textarea>'+
-
-                      
-        '</div>'+
-         '</div>'+
-
-                 
-
-         '<div class="col-md-4">'+
-            '<div class="form-group">'+
-
-         '<label>Descripción</label>' +     
-         '<textarea type="text" name="des" id="des"  class="form-control border-input" rows="5"></textarea>'+
- 
-        '</div>'+
-         '</div>'+
-
-          '<div class="col-md-4">'+
-            '<div class="form-group">'+
-
-         '<label>Etiquetas</label>' +     
-         '<textarea type="text" name="eti" id="eti"  class="form-control" rows="5"></textarea>'+
- 
-        '</div>'+
-         '</div>'+
-         '</div>'+
-
-         '<div class="row">'+
-          '<div class="col-md-4">'+
-            '<div class="form-group">'+
-
-       
-         '<div>Selecciona Ramo : '+
-            '<select class="form-control form-control-sm"  required name="ram" id="ram">' +
-            '<option value="" ></option>'+
-            <?php
-            $ejec7 = mysqli_query($conn, $ramos);
-            while($fila=mysqli_fetch_array($ejec7)){?>
-            '<?php echo '<option value="'.$fila['ID_RAMO'].'">'.$fila["RAM_NOMBRE"].'</option>'; ?>'+
-            <?php } ?>
-            '</select></div>'+
-
-            '<div>Selecciona categoria : '+
-            '<select class="form-control form-control-sm" textalign="center" required name="cat" id="cat">' +
-            '<option value="" ></option>'+
-            <?php
-            $categoria = "SELECT ID_CATEGORIA, CAT_NOMBRE From categorias where cat_estatus='A'";
-            $ejec1 = mysqli_query($conn, $categoria);
-            while($fila=mysqli_fetch_array($ejec1)){?>
-            '<?php echo '<option value="'.$fila['ID_CATEGORIA'].'">'.$fila["CAT_NOMBRE"].'</option>'; ?>'+
-            <?php } ?>
-            '</select></div>'+
-
-                   '<div>Selecciona subcategoria : '+
-            '<select class="form-control form-control-sm" textalign="center" required name="sub" id="sub">' +
-            '<option value="" ></option>'+
-            <?php
-            $ejec2 = mysqli_query($conn, $subcategoria);
-            while($fila=mysqli_fetch_array($ejec2)){?>
-            '<?php echo '<option value="'.$fila['ID_SUBCATEGORIA'].'">'.$fila["SUB_NOMBRE"].'</option>'; ?>'+
-            <?php } ?>
-            '</select></div>'+
-         '</div>'+
-         '</div>'+
-         '</div>'+
-
-
-
-
-         '<Button type="submit" id="confirmar" name="confirmar" class= "btn btn-info btn-fill btn-wd">Actualizar empresa</Button>'+
-         '</form></div>',
-
-showCancelButton: true,
-confirmButtonColor: '#3085d6',
-cancelButtonColor: '#d33',
-confirmButtonText:  'Registrar y generar reporte',
-cancelButtonClass: 'btn btn-danger btn-fill btn-wd',
-showConfirmButton: false,
-focusConfirm: false,
-buttonsStyling: false,
-reverseButtons: true, 
-customClass: 'swal-wide',
-allowOutsideClick: false
-
-})
-
-};
-
-</script>
-
-<script type="text/javascript">
-    //ventana exposicion
-    function expo(id){
-      
-    swal({
-    title: 'Exposición',
-    html:
-    '<div class="card-body"> <form action="modificar_empresa_updateex_fn.php" method="post" name="data" content="text/html; charset=utf-8" >'+
-    //Manda Llamar id,nombre y apellido
-    '<input input type="text" name="id" id="id"  readonly class="form-control border-input" required>' +
-    '<div class="col-md-12">'+
-      '<div class="form-group">'+
-
-      '<label>Nivel de exposicion</label>'+
-      '<select class="form-control form-control-sm" textalign="center" required name="expn" id="expn"><option value="" >'+
-        '</option><option value="Normal" >Normal</option>'+
-        '<option value="Alta">Alta</option>'+
-        '<option value="Maxima">Máxima</option>'+
-        '</select>' +
-      '<label>Fecha límite de exposicion</label>'+
-      '<input type="text" id="expf" name="expf" placeholder="Formato dd/mm/yyyy" required class="form-control border-input" pattern="[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}">'+//validacion fecha
-      '<label>Rango de precios</label>'+
-
-      '<select class="form-control form-control-sm" textalign="center" required name="expr" id="expr"><option value="" >'+
-        '</option><option value="$$" >Hasta $99.00</option>'+
-        '<option value="$$$">Hasta $999.00</option>'+
-        '<option value="$$$$">Hasta $9999.00</option>'+
-        '<option value="$$$$$">Hasta $99999.00</option>'+
-        '</select>' +          
-        '</div>'+
-    '</div>'+
-
-
-    '<div class="col-md-12">'+
-    '<Button type="submit" class= "btn btn-info btn-fill btn-wd">Actualizar exposición</Button>'+
-
-    '</form></div>',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: '</form> Actualizar solicitud',
-    cancelButtonClass: 'btn btn-danger btn-fill btn-wd',
-    showConfirmButton: false,
-    focusConfirm: false,
-    buttonsStyling: false,
-    reverseButtons: true, allowOutsideClick: false
-    })
-
-    };
-
-    </script>
-
-
-
-
-
-<script type="text/javascript">
+    <script type="text/javascript">
   $(document).ready(function ()
    {
      //primero
@@ -914,23 +534,6 @@ allowOutsideClick: false
 
 
   </script>
-
-  <script>
-            $(document).ready(function() {
-                $('#a-tables').DataTable();
-                $('#a-tables2').DataTable();
-                $('#tabla4').DataTable();
-                $('#tabla5').DataTable();
-            } );
-    </script>
-
-
-<style>
-.swal-wide{
-    width:60% !important;
-}
-</style>
-
 
 </body>
 

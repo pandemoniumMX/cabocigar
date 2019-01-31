@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "cabofind";
+$dbname = "cabocigar";
 
 // Crear connection
 $conn = @mysqli_connect($servername, $username, $password, $dbname);
