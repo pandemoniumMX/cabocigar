@@ -5,7 +5,7 @@
     
     $var_id= $_SESSION['clave'];
     $var_sucursal = $_SESSION['sucursal'];
-    $var_name=$_SESSION['nombre'];
+    $var_name=$_SESSION['USU_NOMBRE'];
 
     $inventario ="SELECT i.ID_INVENTARIO, i.INV_NOMBRE, i.INV_SABOR, i.INV_TIPO, i.INV_PRECIOMX, i.INV_PRECIOUS,i.INV_DESCUENTO,i.INV_ALMACEN,i.INV_EXHIBICION, m.MAR_NOMBRE
      FROM tbl_inventario i, tbl_marcas m

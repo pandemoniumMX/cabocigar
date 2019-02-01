@@ -50,8 +50,8 @@ if($resultado->num_rows > 0){
       if($tipo == '2'){
 		$_SESSION['clave'] = $row["ID_USUARIO"];
 		$_SESSION['sucursal'] = $row["ID_SUCURSAL"];
-      	    $_SESSION['nombre']=$var_nombre;
-			 // $id = $_POST ['id_personal'];
+		$_SESSION['USU_NOMBRE']=$var_nombre;
+		// $id = $_POST ['id_personal'];
 			 header("location:inventario.php");
 			}
     
