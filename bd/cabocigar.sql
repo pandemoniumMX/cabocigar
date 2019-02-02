@@ -27,7 +27,8 @@ SET time_zone = "+00:00";
 --
 -- Estructura de tabla para la tabla `tbl_compras`
 --
-
+create database cabocigar;
+use cabocigar;
 DROP TABLE IF EXISTS `tbl_compras`;
 CREATE TABLE IF NOT EXISTS `tbl_compras` (
   `ID_COMPRA` int(11) NOT NULL,

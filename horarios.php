@@ -6,11 +6,16 @@
     $var_id= $_SESSION['clave'];
     $var_sucursal = $_SESSION['sucursal'];
     $var_name=$_SESSION['USU_NOMBRE'];
-
+/*
     $inventario ="SELECT i.ID_INVENTARIO, i.INV_NOMBRE, i.INV_SABOR, i.INV_TIPO, i.INV_PRECIOMX, i.INV_PRECIOUS,i.INV_DESCUENTO,i.INV_ALMACEN,i.INV_EXHIBICION, m.MAR_NOMBRE
      FROM tbl_inventario i, tbl_marcas m
       WHERE i.ID_SUCURSAL='$var_sucursal' and  i.ID_MARCA= m.ID_MARCA";
 
+      */
+
+      $inventario ="SELECT  u.USU_NOMBRE,u.USU_CELULAR, u.ID_HORARIO, u.ID_SUCURSAL, s.ID_SUCURSAL, s.SUC_NOMBRE, h.HOR_LUNES,h.HOR_MARTES,h.HOR_MIERCOLES,h.HOR_JUEVEZ,h.HOR_VIERNES,h.HOR_SABADO,h.HOR_DOMINGO,h.HOR_HORA,h.HOR_TURNO,h.HOR_GOAL
+      FROM tbl_usuarios u, tbl_horario h, tbl_sucursal s 
+      WHERE u.ID_HORARIO=h.ID_HORARIO AND u.ID_SUCURSAL = s.ID_SUCURSAL ";
    
 ?>
 <!DOCTYPE html>
@@ -385,47 +390,53 @@ $(document).ready(function(){
                                 <table id="a-tables" class="table table-hover table-dark table-responsive">
                                                     <thead>
 
-                                                        <th data-field="id">ID</th>
-                                                    <th data-field="fecha" data-sortable="true">Marca</th>
-                                                    <th data-field="estatus" data-sortable="true">Nombre</th>
-                                                    <th data-field="estatus" data-sortable="true">Sabor</th>
-                                                    <th data-field="fecha" data-sortable="true">Tipo</th>
-                                                    <th data-field="estatus" data-sortable="true">Precio MX</th>
-                                                    <th data-field="estatus" data-sortable="true">Precio US</th>
-                                                    <th data-field="fecha" data-sortable="true">Descuento</th>
-                                                    <th data-field="estatus" data-sortable="true">Almacen</th>
-                                                    <th data-field="estatus" data-sortable="true">Exhibicion</th>
+                                                        <th data-field="id">Sucursal</th>
+                                                        <th data-field="fecha" data-sortable="true">Nombre</th>
+                                                    <th data-field="fecha" data-sortable="true">Horario</th>
+                                                    <th data-field="estatus" data-sortable="true">Goal</th>
+                                                    <th data-field="estatus" data-sortable="true">Lunes</th>
+                                                    <th data-field="fecha" data-sortable="true">Martes</th>
+                                                    <th data-field="estatus" data-sortable="true">Miercoles</th>
+                                                    <th data-field="estatus" data-sortable="true">Juevez</th>
+                                                    <th data-field="fecha" data-sortable="true">Viernes</th>
+                                                    <th data-field="estatus" data-sortable="true">Sabado</th>
+                                                    <th data-field="estatus" data-sortable="true">Domingo</th>
+                                                    <th data-field="estatus" data-sortable="true">Acción</th>
 
-                                                    <th class="disabled-sorting">Acción</th>
+
 
                                                     </thead>
                                                     <?php
                                                     $ejecutar = mysqli_query($conn, $inventario);
                                                     while($fila=mysqli_fetch_array($ejecutar)){
-                                                        $id          = $fila['ID_INVENTARIO'];
-                                                        $mar          = $fila['MAR_NOMBRE'];
-                                                        $nom           = $fila['INV_NOMBRE'];
-                                                        $sab          = $fila['INV_SABOR'];
-                                                        $tip          = $fila['INV_TIPO'];
-                                                        $mx          = $fila['INV_PRECIOMX'];
-                                                        $us           = $fila['INV_PRECIOUS'];
-                                                        $des          = $fila['INV_DESCUENTO'];
-                                                        $alm          = $fila['INV_ALMACEN'];
-                                                        $ex           = $fila['INV_EXHIBICION'];
+                                                        $id          = $fila['SUC_NOMBRE'];
+                                                        $nom          = $fila['USU_NOMBRE'];
+                                                        $hor           = $fila['HOR_HORA'];
+                                                        $goal           = $fila['HOR_GOAL'];
+                                                        $lun          = $fila['HOR_LUNES'];
+                                                        $mar          = $fila['HOR_MARTES'];
+                                                        $mie          = $fila['HOR_MIERCOLES'];
+                                                        $jue           = $fila['HOR_JUEVEZ'];
+                                                        $vie          = $fila['HOR_VIERNES'];
+                                                        $sab          = $fila['HOR_SABADO'];
+                                                        $dom           = $fila['HOR_DOMINGO'];
+
 
 
                                                 ?>
                                                                     <tr>
                                                                         <td width="8%"><?php echo $id ?></td>
-                                                                        <td width="14%"><?php echo $mar ?></td>
                                                                         <td width="14%"><?php echo $nom ?></td>
+                                                                        <td width="14%"><?php echo $hor ?></td>
+                                                                        <td width="14%"><?php echo $goal ?></td>
+                                                                        <td width="14%"><?php echo $lun ?></td>
+                                                                        <td width="8%"><?php echo $mar ?></td>
+                                                                        <td width="14%"><?php echo $mie ?></td>
+                                                                        <td width="14%"><?php echo $jue ?></td>
+                                                                        <td width="14%"><?php echo $vie ?></td>
                                                                         <td width="14%"><?php echo $sab ?></td>
-                                                                        <td width="8%"><?php echo $tip ?></td>
-                                                                        <td width="14%"><?php echo $mx ?></td>
-                                                                        <td width="14%"><?php echo $us ?></td>
-                                                                        <td width="14%"><?php echo $des ?></td>
-                                                                        <td width="14%"><?php echo $alm ?></td>
-                                                                        <td width="14%"><?php echo $ex ?></td>
+                                                                        <td width="14%"><?php echo $dom ?></td>
+
                                                                         <td width="14%">
                                                                         <?php
                                                                         
