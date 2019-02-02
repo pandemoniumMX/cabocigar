@@ -13,10 +13,11 @@
 
       */
 
-      $inventario ="SELECT  u.USU_NOMBRE,u.USU_CELULAR, u.ID_HORARIO, u.ID_SUCURSAL, s.ID_SUCURSAL, s.SUC_NOMBRE, h.HOR_LUNES,h.HOR_MARTES,h.HOR_MIERCOLES,h.HOR_JUEVEZ,h.HOR_VIERNES,h.HOR_SABADO,h.HOR_DOMINGO,h.HOR_HORA,h.HOR_TURNO,h.HOR_GOAL
-      FROM tbl_usuarios u, tbl_horario h, tbl_sucursal s 
-      WHERE u.ID_HORARIO=h.ID_HORARIO AND u.ID_SUCURSAL = s.ID_SUCURSAL ";
+      $inventario ="SELECT  h.ID_HORARIO,s.SUC_NOMBRE,h.HOR_HORA,h.HOR_GOAL, h.HOR_LUNES,h.HOR_MARTES,h.HOR_MIERCOLES,h.HOR_JUEVEZ,h.HOR_VIERNES,h.HOR_SABADO,h.HOR_DOMINGO, h.HOR_TURNO
+      FROM  tbl_horario h, tbl_sucursal s 
+      WHERE  s.ID_SUCURSAL = h.ID_SUCURSAL";
    
+   $usuarios="SELECT * from tbl_usuarios";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -391,7 +392,6 @@ $(document).ready(function(){
                                                     <thead>
 
                                                         <th data-field="id">Sucursal</th>
-                                                        <th data-field="fecha" data-sortable="true">Nombre</th>
                                                     <th data-field="fecha" data-sortable="true">Horario</th>
                                                     <th data-field="estatus" data-sortable="true">Goal</th>
                                                     <th data-field="estatus" data-sortable="true">Lunes</th>
@@ -410,7 +410,6 @@ $(document).ready(function(){
                                                     $ejecutar = mysqli_query($conn, $inventario);
                                                     while($fila=mysqli_fetch_array($ejecutar)){
                                                         $id          = $fila['SUC_NOMBRE'];
-                                                        $nom          = $fila['USU_NOMBRE'];
                                                         $hor           = $fila['HOR_HORA'];
                                                         $goal           = $fila['HOR_GOAL'];
                                                         $lun          = $fila['HOR_LUNES'];
@@ -426,16 +425,75 @@ $(document).ready(function(){
                                                 ?>
                                                                     <tr>
                                                                         <td width="8%"><?php echo $id ?></td>
-                                                                        <td width="14%"><?php echo $nom ?></td>
-                                                                        <td width="14%"><?php echo $hor ?></td>
-                                                                        <td width="14%"><?php echo $goal ?></td>
-                                                                        <td width="14%"><?php echo $lun ?></td>
-                                                                        <td width="8%"><?php echo $mar ?></td>
-                                                                        <td width="14%"><?php echo $mie ?></td>
-                                                                        <td width="14%"><?php echo $jue ?></td>
-                                                                        <td width="14%"><?php echo $vie ?></td>
-                                                                        <td width="14%"><?php echo $sab ?></td>
-                                                                        <td width="14%"><?php echo $dom ?></td>
+                                                                        <td width="14%"> <select class="form-control form-control-sm" textalign="center" required name="destino" id="destino"><option value="" ><?php echo $hor ?>
+                                        </option><option value="Almacen" >9:00-17:00</option>
+                                        <option value="Cliente">9:00-15:00</option>
+                                        <option value="Cliente">17:00-24:00</option>
+                                        <option value="Cliente">17:00-01:00</option>
+                                        <option value="Cliente">10:00-18:00</option>
+                                        <option value="Cliente">18:00-01:00</option>
+
+                                        </select>
+                                        </td>
+                                                                        <td width="14%"><input type="number" value="<?php echo $goal ?>"></td>
+                                                                        <td width="14%">  <select class="form-control form-control-sm" textalign="center" required name="ramo" id="ramo">
+                                        <option value="" ></option>
+                                        <?php
+                                        $ejec7 = mysqli_query($conn, $usuarios);
+                                        while($fila=mysqli_fetch_array($ejec7)){?>
+                                        <?php echo '<option value="'.$fila["ID_USUARIO"].'">'.$fila["USU_NOMBRE"].'</option>'; ?>
+                                        <?php } ?>
+                                        </select>
+                                                                        
+                                                                        </td>
+                                                                        <td width="8%"><select class="form-control form-control-sm" textalign="center" required name="ramo" id="ramo">
+                                        <option value="" ></option>
+                                        <?php
+                                        $ejec7 = mysqli_query($conn, $usuarios);
+                                        while($fila=mysqli_fetch_array($ejec7)){?>
+                                        <?php echo '<option value="'.$fila["ID_USUARIO"].'">'.$fila["USU_NOMBRE"].'</option>'; ?>
+                                        <?php } ?>
+                                        </select></td>
+                                                                        <td width="14%"><select class="form-control form-control-sm" textalign="center" required name="ramo" id="ramo">
+                                        <option value="" ></option>
+                                        <?php
+                                        $ejec7 = mysqli_query($conn, $usuarios);
+                                        while($fila=mysqli_fetch_array($ejec7)){?>
+                                        <?php echo '<option value="'.$fila["ID_USUARIO"].'">'.$fila["USU_NOMBRE"].'</option>'; ?>
+                                        <?php } ?>
+                                        </select></td>
+                                                                        <td width="14%"><select class="form-control form-control-sm" textalign="center" required name="ramo" id="ramo">
+                                        <option value="" ></option>
+                                        <?php
+                                        $ejec7 = mysqli_query($conn, $usuarios);
+                                        while($fila=mysqli_fetch_array($ejec7)){?>
+                                        <?php echo '<option value="'.$fila["ID_USUARIO"].'">'.$fila["USU_NOMBRE"].'</option>'; ?>
+                                        <?php } ?>
+                                        </select></td>
+                                                                        <td width="14%"><select class="form-control form-control-sm" textalign="center" required name="ramo" id="ramo">
+                                        <option value="" ></option>
+                                        <?php
+                                        $ejec7 = mysqli_query($conn, $usuarios);
+                                        while($fila=mysqli_fetch_array($ejec7)){?>
+                                        <?php echo '<option value="'.$fila["ID_USUARIO"].'">'.$fila["USU_NOMBRE"].'</option>'; ?>
+                                        <?php } ?>
+                                        </select></td>
+                                                                        <td width="14%"><select class="form-control form-control-sm" textalign="center" required name="ramo" id="ramo">
+                                        <option value="" ></option>
+                                        <?php
+                                        $ejec7 = mysqli_query($conn, $usuarios);
+                                        while($fila=mysqli_fetch_array($ejec7)){?>
+                                        <?php echo '<option value="'.$fila["ID_USUARIO"].'">'.$fila["USU_NOMBRE"].'</option>'; ?>
+                                        <?php } ?>
+                                        </select></td>
+                                                                        <td width="14%"><select class="form-control form-control-sm" textalign="center" required name="ramo" id="ramo">
+                                        <option value="" ></option>
+                                        <?php
+                                        $ejec7 = mysqli_query($conn, $usuarios);
+                                        while($fila=mysqli_fetch_array($ejec7)){?>
+                                        <?php echo '<option value="'.$fila["ID_USUARIO"].'">'.$fila["USU_NOMBRE"].'</option>'; ?>
+                                        <?php } ?>
+                                        </select></td>
 
                                                                         <td width="14%">
                                                                         <?php
