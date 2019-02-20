@@ -391,7 +391,7 @@ $(document).ready(function(){
 
                                 <div id='show-me'>
                                 <div class="row">
-                            <div class="col-lg-8">
+                     
 
                                 <table id="a-tables" class="table table-hover table-dark table-responsive">
                                                     <thead>
@@ -400,11 +400,11 @@ $(document).ready(function(){
                                                     <th data-field="fecha" data-sortable="true">Marca</th>
                                                     <th data-field="estatus" data-sortable="true">Nombre</th>
                                
-                                                    <th data-field="estatus" data-sortable="true">Precio MX</th>
+                                                    <th data-field="estatus" data-sortable="true">MX</th>
                                                     <th data-field="fecha" data-sortable="true">% OFF </th>
-                                                    <th data-field="estatus" data-sortable="true">Disponible</th>
+                                                    <th data-field="estatus" data-sortable="true">Dispo</th>
                                                     <th data-field="estatus" data-sortable="true">Cantidad</th>
-                                                    <th  data-field="estatus" data-sortable="true">Total</th>
+                                                    <th  data-field="estatus" data-sortable="true">Total MX</th>
                                                     
 
                                                     <th class="disabled-sorting">Acción</th>
@@ -428,11 +428,11 @@ $(document).ready(function(){
                                                                         <td width="14%"><?php echo $mar ?></td>
                                                                         <td width="14%"><?php echo $nom ?></td>
                                                                         
-                                                                        <td width="14%"><input type="number" id="precio"  value="<?php echo $mx ?>" readonly class="form-control"></td>
-                                                                        <td width="14%"><input type="number" id="descuento"  value="<?php echo $des ?>" readonly class="form-control"></td>
-                                                                        <td width="14%"><?php echo $ex ?></td>
-                                                                        <td width="14%"><input type="cantidad" id="cantidad"  value="0" min="1" onkeydown="operaciones();" class="form-control"></td>
-                                                                        <td width="10%"><input type="number" id="total"  value="0" class="form-control-sm" readonly></td>
+                                                                        <td width="10%"><?php echo $mx ?></td>
+                                                                        <td width="10%"><?php echo $des ?></td>
+                                                                        <td width="10%"><?php echo $ex ?></td>
+                                                                        <td width="14%"><input type="number" id="cantidad"  value="0" min="1"  onkeyup="operaciones();" class="form-control"></td>
+                                                                        <td width="14%"><input type="number" id="total"  value="0" class="form-control" readonly></td>
 
                                                                         <td width="14%">
                                                                         <a href='#' onclick='modificar(), update_em_fn();' title='Agregar' ><i class='btn-sm btn-success fa fa-shopping-cart'></i></a>
@@ -458,7 +458,6 @@ $(document).ready(function(){
                                                 </div>
 
                                                 <!-- Fin de la tabla-->
-                                                <div class="col-lg-4">
                                                     <section class="card">
                                                     <div class="card-header">
                                                                     <strong>Venta</strong>
@@ -884,18 +883,26 @@ allowOutsideClick: false
 
 function operaciones()
 {
-  var precio =document.getElementById('precio').value;
-  var descuento =document.getElementById('descuento').value;
-  //var cantidad =document.getElementById('cantidad').value;
+    var precio = "<?php echo $mx; ?>";
+  //var descuento =document.getElementById('descuento').value;
+  var descuento = "<?php echo $des; ?>";
+  var disponible = "<?php echo $ex; ?>";  
+  var cantidad =document.getElementById('cantidad').value;
 
-   suma =parseInt(precio) * parseFloat(descuento);
+  if (<?php echo $ex; ?> < cantidad) {
+    alert("No puedes vender más cantidad de las disponibles");
+}else{
+   suma =parseFloat(precio) * parseFloat(descuento);
 
-   //total =parseInt(suma)-parseInt(abono);
+   total =parseFloat(precio)-parseFloat(suma);
 
-   subtotal =parseInt(document.getElementById('total').value= suma);
+   subtotal =parseFloat(total)*parseFloat(cantidad);
+
+
+   subtotal1 =parseInt(document.getElementById('total').value= subtotal);
   // totalt =parseInt(document.getElementById('restante').value= total);
 
-
+}
 }
 
 
